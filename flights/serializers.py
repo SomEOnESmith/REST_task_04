@@ -35,8 +35,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 		fields = ['username', 'password', 'last_name','first_name']
 
 	def create(self, validated_data):
-		new_user = User(username= validated_data['username'], 
-			first_name=validated_data['first_name'] , last_name=validated_data['last_name'])
+		# new_user = User(username= validated_data['username'], 
+		# 	first_name=validated_data['first_name'] , last_name=validated_data['last_name'])
+		new_user = User(**validated_data)
+		# because validated_data and the User keys are the same 
 		new_user.set_password(validated_data['password'])
 		new_user.save()
 		return validated_data
